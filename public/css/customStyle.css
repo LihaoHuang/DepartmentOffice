@@ -1,0 +1,36 @@
+  .mytitle {
+    color: rgba(31,54,86);
+    font-size: 35px;
+    font-family: 'Microsoft JhengHei';
+    font-weight: bolder;
+    position: relative;
+    top: 20px;
+    left: 5%;
+}
+.titleContent {
+    color: black;
+    font-size: 60px;
+    font-family: 'Microsoft JhengHei';
+    font-weight: bolder;
+    position: relative;
+    top: 250px;
+    left: 15%;
+}
+
+.tableStyle {
+    border-collapse: collapse;
+    font-family: 'Microsoft JhengHei';
+    font-weight: bolder;
+    font-size: 25px;
+    text-align: center;
+    color: rgb(22, 100, 255);
+    border: none;
+    width: 95%;
+}
+
+.tableStyle .tableContent{
+    font-weight: normal;
+    font-size: 20px;
+    text-align: center;
+    color: black;
+}
