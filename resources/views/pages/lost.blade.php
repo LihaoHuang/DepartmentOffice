@@ -21,10 +21,10 @@
         $('#EditIntro').val(wrapItem.children().next().html());
         $('#EditStart').val(wrapItem.children().next().next().html());
         $('#EditEnd').val(wrapItem.children().next().next().next().html());
-        $('#index').attr('action','{{route('apply.update')}}/'+trueID);
+        $('#index').attr('action','{{route('lost.update')}}/'+trueID);
     }
         function delIndex(trueID){
-        $('#delIndex').attr('action','{{route('apply.delete')}}/'+trueID);
+        $('#delIndex').attr('action','{{route('lost.delete')}}/'+trueID);
     }
 </script>
 <a role="button" class="button button-thirdary" style="position: relative;font-size: 20px;left: 87%" data-toggle="modal" data-target="#AddForm">新增</a>
@@ -53,7 +53,7 @@
     <center>{{$results->render()}}</center>
 @endsection
 @section('AddForm')
-    {!!Form::open([ 'class'=>'form-horizontal', 'method' => 'post', 'route' => 'apply.store'])!!}
+    {!!Form::open([ 'class'=>'form-horizontal', 'method' => 'post', 'route' => 'lost.store'])!!}
         <div class="modal-body">
                 <div class="form-group">
                     {!!Form::label('AcuivityName','活動名稱',['class' => 'col-sm-2 control-label'])!!}

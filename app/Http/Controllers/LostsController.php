@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Auth;
 use Gate;
 use Illuminate\Http\Request;
-use App\Models\Apply;
-use App\Http\Requests\ApplyPostRequest;
+use App\Models\Lost;
+use App\Http\Requests\LostRequest;
 
-class ApplysController extends Controller
+
+class LostsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,9 +21,9 @@ class ApplysController extends Controller
         if(Gate::denies('show', Auth::user())){
             return redirect()->route('home');
         }
-        $obtain = Apply::orderBy('id','DESC');
+        $obtain = Lost::orderBy('id','DESC');
         //paginate()會將結果陣列，自動格式成他需要的樣子，而其不為JSON格式陣列，故無法成為物件陣列。get()則為一JSON格式之陣列，故可被JS的物件陣列使用。
-        return view('pages.applys',['mainTitle' => '活動報名','results' => $obtain->paginate(11),'obtainArr' => $obtain->get()]);
+        return view('pages.lost',['mainTitle' => '失物招領','results' => $obtain->paginate(11),'obtainArr' => $obtain->get()]);
     }
 
     /**
@@ -41,13 +42,13 @@ class ApplysController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ApplyPostRequest $request)
+    public function store(Request $request)
     {
         if(Gate::denies('show', Auth::user())){
             return redirect()->route('home');
         }
-        Apply::create($request->except('_token'));
-        return redirect()->route('apply');
+        Lost::create($request->except('_token'));
+        return redirect()->route('lost');
     }
 
     /**
@@ -79,13 +80,13 @@ class ApplysController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ApplyPostRequest $request, $id)
+    public function update(Request $request, $id)
     {
         if(Gate::denies('show', Auth::user())){
             return redirect()->route('home');
         }
-        Apply::find($id)->update($request->except('_token'));
-        return redirect()->route('apply');
+        Lost::find($id)->update($request->except('_token'));
+        return redirect()->route('lost');
     }
 
     /**
@@ -99,7 +100,7 @@ class ApplysController extends Controller
         if(Gate::denies('show', Auth::user())){
             return redirect()->route('home');
         }
-        Apply::destroy($id);
-        return redirect()->route('apply');
+        Lost::destroy($id);
+        return redirect()->route('lost');
     }
 }

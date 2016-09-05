@@ -55,7 +55,7 @@
             @can('show', Auth::user()) 
             {{-- dropMenu --}}
             <li>
-                <a class="" href="{{route('apply')}}">
+                <a class="" href="{{route('lost')}}">
                     <i class="icon_documents_alt" aria-hidden="true"></i>
                     <span>失物招領</span>
                 </a>

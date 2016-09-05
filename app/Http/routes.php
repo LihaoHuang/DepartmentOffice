@@ -29,11 +29,11 @@ Route::group(['middleware' =>'auth'],function(){
         Route::get('/download/{filename?}',['as' => 'getFile','uses' => 'TurnoutsController@download']);
     });
 
-    Route::group(['prefix' => 'apply'],function(){
-        Route::get('/',['as' => 'apply',  'uses' => 'ApplysController@index']);
-        Route::post('/store',['as' => 'apply.store','uses' => 'ApplysController@store']);
-        Route::patch('/{id?}',['as' => 'apply.update','uses' => 'ApplysController@update']);
-        Route::delete('/delete/{id?}',['as' => 'apply.delete','uses' => 'ApplysController@destroy']);
+    Route::group(['prefix' => 'lost'],function(){
+        Route::get('/',['as' => 'lost',  'uses' => 'LostsController@index']);
+        Route::post('/store',['as' => 'lost.store','uses' => 'Lo0stsController@store']);
+        Route::patch('/{id?}',['as' => 'lost.update','uses' => 'LostsController@update']);
+        Route::delete('/delete/{id?}',['as' => 'lost.delete','uses' => 'LostsController@destroy']);
     });
     
     Route::group(['prefix' => 'manager'],function(){    
