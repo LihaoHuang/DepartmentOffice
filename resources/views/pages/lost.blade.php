@@ -42,7 +42,11 @@
         <td>{{$item->name}}</td>
         <td>{{$item->number}}</td>
         <td>{{$item->findTime}}</td>
-        <td>{{$item->situation}}</td>
+        @if( $item->situation == '已領回')
+            <td><font color="green">已領回</font></td>
+        @else
+            <td><font color="red">未領回</font></td>
+        @endif
         <td>
            <a role="button" class="button" style="font-size: 20px;" onclick = "delIndex({{$item->id}})" data-toggle="modal" data-target="#DelForm">刪除</a>
             <a role="button" class="button  button-secondary" style="font-size: 20px;" onclick = "getForm({{$key}},{{$item->id}})" data-toggle="modal" data-target="#EditForm">編輯</a>
@@ -64,7 +68,7 @@
                 <div class="form-group">
                     {!!Form::label('numberField','失物編號',['class' => 'col-sm-2 control-label'])!!}
                     <div class="col-sm-10">
-                        {!!Form::text('number',null,['class' => 'form-control', 'id' => 'numberField', 'placeholder' => '失物編號'])!!}
+                        {!!Form::text('number',null,['class' => 'form-control', 'id' => 'numberField', 'placeholder' => '輸入失物編號(方便遺失者依編號詢問失物)'])!!}
                     </div>
                 </div>
                 <div class="form-group">
@@ -101,7 +105,7 @@
                 <div class="form-group">
                 {!!Form::label('EditNumber','失物編號',['class' => 'col-sm-2 control-label'])!!}
                     <div class="col-sm-10">
-                        {!!Form::text('number',null,['class' => 'form-control' , 'id' => 'EditNumber', 'placeholder' => '失物編號'])!!}
+                        {!!Form::text('number',null,['class' => 'form-control' , 'id' => 'EditNumber', 'placeholder' => '輸入失物編號(方便遺失者依編號詢問失物)'])!!}
                     </div>
                 </div>
                 <div class="form-group">
