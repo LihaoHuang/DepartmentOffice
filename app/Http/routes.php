@@ -31,7 +31,7 @@ Route::group(['middleware' =>'auth'],function(){
 
     Route::group(['prefix' => 'lost'],function(){
         Route::get('/',['as' => 'lost',  'uses' => 'LostsController@index']);
-        Route::post('/store',['as' => 'lost.store','uses' => 'Lo0stsController@store']);
+        Route::post('/store',['as' => 'lost.store','uses' => 'LostsController@store']);
         Route::patch('/{id?}',['as' => 'lost.update','uses' => 'LostsController@update']);
         Route::delete('/delete/{id?}',['as' => 'lost.delete','uses' => 'LostsController@destroy']);
     });

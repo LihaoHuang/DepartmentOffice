@@ -18,12 +18,12 @@
     function getForm(arrIndex,trueID){
         var wrapItem = $('#item_'+arrIndex);
         $('#EditName').val(wrapItem.children().html());
-        $('#EditIntro').val(wrapItem.children().next().html());
-        $('#EditStart').val(wrapItem.children().next().next().html());
-        $('#EditEnd').val(wrapItem.children().next().next().next().html());
+        $('#EditNumber').val(wrapItem.children().next().html());
+        $('#EditFindTime').val(wrapItem.children().next().next().html());
+        $('#EditSituation').val(wrapItem.children().next().next().next().html());
         $('#index').attr('action','{{route('lost.update')}}/'+trueID);
     }
-        function delIndex(trueID){
+    function delIndex(trueID){
         $('#delIndex').attr('action','{{route('lost.delete')}}/'+trueID);
     }
 </script>
@@ -31,18 +31,18 @@
 
     <table class="tableStyle">
     <tr>    
-        <td>活動名稱</td>
-        <td>活動簡介</td>
-        <td>報名開始日期</td>
-        <td>報名結束日期</td>
+        <td>失物名稱</td>
+        <td>失物編號</td>
+        <td>發現日期</td>
+        <td>失物狀況</td>
         <td></td>
     </tr>
     @foreach($results as $key => $item)
     <tr class="tableContent" id= "item_{{$key}}">
         <td>{{$item->name}}</td>
-        <td>{{str_limit($item->intro,15)}}</td>
-        <td>{{$item->start_at}}</td>
-        <td>{{$item->end_at}}</td>
+        <td>{{$item->number}}</td>
+        <td>{{$item->findTime}}</td>
+        <td>{{$item->situation}}</td>
         <td>
            <a role="button" class="button" style="font-size: 20px;" onclick = "delIndex({{$item->id}})" data-toggle="modal" data-target="#DelForm">刪除</a>
             <a role="button" class="button  button-secondary" style="font-size: 20px;" onclick = "getForm({{$key}},{{$item->id}})" data-toggle="modal" data-target="#EditForm">編輯</a>
@@ -56,27 +56,30 @@
     {!!Form::open([ 'class'=>'form-horizontal', 'method' => 'post', 'route' => 'lost.store'])!!}
         <div class="modal-body">
                 <div class="form-group">
-                    {!!Form::label('AcuivityName','活動名稱',['class' => 'col-sm-2 control-label'])!!}
+                    {!!Form::label('AcuivityName','失物名稱',['class' => 'col-sm-2 control-label'])!!}
                     <div class="col-sm-10">
                         {!!Form::text('name',null,['class' => 'form-control', 'id' => 'AcuivityName', 'placeholder' => '輸入名稱'])!!}
                     </div>
                 </div>
                 <div class="form-group">
-                    {!!Form::label('introField','活動簡介',['class' => 'col-sm-2 control-label'])!!}
+                    {!!Form::label('numberField','失物編號',['class' => 'col-sm-2 control-label'])!!}
                     <div class="col-sm-10">
-                        {!!Form::textarea('intro',null,['class' => 'form-control', 'id' => 'introField', 'placeholder' => '簡單介紹活動'])!!}
+                        {!!Form::text('number',null,['class' => 'form-control', 'id' => 'numberField', 'placeholder' => '失物編號'])!!}
                     </div>
                 </div>
                 <div class="form-group">
-                    {!!Form::label('AcuivityNameStart','開始日期',['class' => 'col-sm-2 control-label'])!!}
+                    {!!Form::label('findTimeField','發現日期',['class' => 'col-sm-2 control-label'])!!}
                     <div class="col-sm-10">
-                        {!!Form::date('start_at',\Carbon\Carbon::now())!!}
+                        {!!Form::date('findTime',\Carbon\Carbon::now(),['id' => 'findTimeField'])!!}
                     </div>
                 </div>      
                 <div class="form-group">
-                {!!Form::label('AcuivityNameEnd','結束日期',['class' => 'col-sm-2 control-label'])!!}
+                {!!Form::label('situationField','失物狀況',['class' => 'col-sm-2 control-label'])!!}
                     <div class="col-sm-10">
-                    {!!Form::date('end_at',\Carbon\Carbon::tomorrow())!!}
+                        <select id="situationField" name="situation" onChange="selectFun()">
+                            <option value="未領回">未領回</option>
+                            <option value="已領回">已領回</option>
+                        </select>
                     </div>
                 </div>              
         </div>
@@ -90,27 +93,30 @@
     {!!Form::open(['class'=> 'form-horizontal', 'id' => 'index', 'role'=> 'form', 'method' => 'patch'])!!}
         <div class="modal-body">
                 <div class="form-group">
-                {!!Form::label('EditName','活動名稱',['class' => 'col-sm-2 control-label'])!!}
+                {!!Form::label('EditName','失物名稱',['class' => 'col-sm-2 control-label'])!!}
                     <div class="col-sm-10">
                         {!!Form::text('name',null,['class' => 'form-control' , 'id' => 'EditName', 'placeholder' => '輸入名稱'])!!}
                     </div>
                 </div>
                 <div class="form-group">
-                {!!Form::label('EditIntro','活動簡介',['class' => 'col-sm-2 control-label'])!!}
+                {!!Form::label('EditNumber','失物編號',['class' => 'col-sm-2 control-label'])!!}
                     <div class="col-sm-10">
-                        {!!Form::textarea('intro',null,['class' => 'form-control' , 'id' => 'EditIntro', 'placeholder' => '簡單介紹活動'])!!}
+                        {!!Form::text('number',null,['class' => 'form-control' , 'id' => 'EditNumber', 'placeholder' => '失物編號'])!!}
                     </div>
                 </div>
                 <div class="form-group">
-                    {!!Form::label('EditStart','開始日期',['class' => 'col-sm-2 control-label'])!!}
+                    {!!Form::label('EditFindTime','發現日期',['class' => 'col-sm-2 control-label'])!!}
                     <div class="col-sm-10">
-                        {!!Form::text('start_at',null,['class' => 'form-control' , 'id' => 'EditStart', 'placeholder' => 'yyyy-MM-dd HH:mm:ss'])!!}
+                        {!!Form::text('findTime',null,['class' => 'form-control' , 'id' => 'EditFindTime', 'placeholder' => 'yyyy-MM-dd HH:mm:ss'])!!}
                     </div>
                 </div>      
                 <div class="form-group">
-                    {!!Form::label('EditEnd','結束日期',['class' => 'col-sm-2 control-label'])!!}                    
+                    {!!Form::label('EditSituation','失物狀況',['class' => 'col-sm-2 control-label'])!!}                    
                     <div class="col-sm-10">
-                        {!!Form::text('end_at',null,['class' => 'form-control' , 'id' => 'EditEnd', 'placeholder' => 'yyyy-MM-dd HH:mm:ss'])!!}
+                        <select id="EditSituation" name="situation" onChange="selectFun()">
+                            <option value="未領回">未領回</option>
+                            <option value="已領回">已領回</option>
+                        </select>
                     </div>
                 </div>         
         </div>
